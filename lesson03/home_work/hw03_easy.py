@@ -4,14 +4,16 @@
 # Округление должно происходить по математическим правилам (0.6 --> 1, 0.4 --> 0).
 # Для решения задачи не используйте встроенные функции и функции из модуля math.
 
-def my_round(number, ndigits):
-    pass
-
-
+def my_round(number, digits):
+  multiplier = pow(10.0, digits)
+  return int (number*multiplier + 0.5) / multiplier
 print(my_round(2.1234567, 5))
 print(my_round(2.1999967, 5))
 print(my_round(2.9999967, 5))
-
+print('Проверка функции через round')
+print(round(2.1234567, 5))
+print(round(2.1999967, 5))
+print(round(2.9999967, 5))
 
 # Задание-2:
 # Дан шестизначный номер билета. Определить, является ли билет счастливым.
@@ -20,7 +22,21 @@ print(my_round(2.9999967, 5))
 # !!!P.S.: функция не должна НИЧЕГО print'ить
 
 def lucky_ticket(ticket_number):
-    pass
+# проверка на четное кол-во цифр:
+    if len(str(ticket_number))%2 == 0:
+# Определяем числа в номере билета
+        b = []
+        while ticket_number > 0:
+          b.append(ticket_number % 10)
+          ticket_number = ticket_number // 10
+# проверяем счастливый ли билет
+        if sum(b[0:3])==sum(b[3:6]):
+            return 'Поздравляем, ваш билет счастливый'
+        else:
+            return 'C прискорбием сообщаем что вам не повезло,билет не счастилвый'
+# выход из провеярки на четное
+    else:
+        return 'Ваш билет содержит нечетное колличество цифр, но точно не счастливый'
 
 
 print(lucky_ticket(123006))
