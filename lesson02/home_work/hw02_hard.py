@@ -5,6 +5,12 @@ equation = 'y = -12x + 11111140.2121'
 x = 2.5
 # вычислите и выведите y
 
+equation = 'y = -12x + 11111140.2121'
+x = 2.5
+equation = equation.split(' ')
+equation[2] = equation[2].split('x')
+equation[0] = float(equation[2][0])*x + float(equation[4])
+print(equation[0])
 
 # Задание-2: Дата задана в виде строки формата 'dd.mm.yyyy'.
 # Проверить, корректно ли введена дата.
@@ -24,6 +30,55 @@ date = '01.22.1001'
 date = '1.12.1001'
 date = '-2.10.3001'
 
+date = date.split('.')
+day = date[0]
+month = date[1]
+year = date[2]
+
+# 1. функция определения дней в месяце
+def day_in_month(month):
+    month_31 = [1,3,5,7,8,10,12]
+    month_30 = [4,6,9,11]
+    month_29 = [2]
+    if month in month_31:
+        return '31'
+    elif month in month_30:
+        return '30'
+    elif month in month_29:
+        return '29'
+    else:
+        return 'Номер месяца указан не верно'
+    
+# 2. Проверяем верно ли указан формат даты: дни - 2 числа, месяц - 2 числа, год - 4 числа.
+if len(day) == 2 and len(month) == 2 and len(year) == 4:
+# 3. Проверяем попадает ли год в верный диапазон
+    if int(year) > 1 and int(year) < 9999: 
+# 4. четыре проверки месяца и даты, для определения кол-ва дней в месяце
+        if day_in_month(int(month)) == '30':
+            if int(day) > 0 and int(day) <=30:
+                print(f'Формат даты {day}' '.' f'{month}' '.' f'{year} ' 'указан верно')
+            else:
+                print('Колличество дней не соответстует месяцу')
+        elif day_in_month(int(month)) == '31':
+            if int(day) > 0 and int(day) <=31:
+                print(f'Формат даты {day}' '.' f'{month}' '.' f'{year} ' 'указан верно')
+            else:
+                print('Колличество дней не соответстует месяцу')
+        elif day_in_month(int(month)) == '29':
+            if int(day) > 0 and int(day) <=29:
+                print(f'Формат даты {day}' '.' f'{month}' '.' f'{year} ' 'указан верно')
+            else:
+# закрываем проверку по дням
+                print('Колличество дней не соответстует месяцу')    
+# закрываем проверку по месяцам
+        else:
+            print('Номер месяца указан не верно')
+# закрываем проверку по году
+    else:
+        print('Год указан не верно')
+# закрываем проверку форматов
+else:
+    print('Неверный формат даты')
 
 # Задание-3: "Перевёрнутая башня" (Задача олимпиадного уровня)
 #
