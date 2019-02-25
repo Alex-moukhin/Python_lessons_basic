@@ -64,9 +64,72 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
        'JFaXiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQ'\
        'oiQzTYwZAiRwycdlHfyHNGmkNqSwXUrxGC'
 
+line_answer = re.findall(r'[a-z]{2}([A-Z]+)[A-Z]{2}', line_2)
+print(f'Все буквы в нижнем регистре, с помощью re: {line_answer}')
+
+
+letter1 = list(map(lambda x: chr(x), list(range(65, 91))))
+letter2 = list(map(lambda x: chr(x), list(range(97, 123))))
+line_answer = list(line_2)
+ 
+lst = []
+i = len(line_answer) - 1
+
+while i >= 0:
+    if line_answer[i] in letter2:
+         lst.append(line_answer[i])
+    elif line_answer[i] in letter1  and i <= len(line_answer) - 3 and line_answer[i+1] in letter1  and line_answer[i+2] in letter1:
+        lst.append(line_answer[i])
+    else:
+        lst.append(' ')
+    i -= 1
+lst.reverse()
+ 
+i = 0
+lst2 = []
+registr = True  
+
+
+while i <= len(lst)-1:
+    if lst[i] in letter2:
+        registr = True
+    if lst[i] in letter1  and lst[i-1] in letter2 and lst[i-2] in letter2:
+        lst2.append(lst[i])
+        registr = False
+    elif lst[i] in letter1 and registr == False:
+        lst2.append(lst[i])
+    else:
+        lst2.append(' ')
+    i += 1
+stroka=''.join(lst2).split(' ') 
+ 
+line_str_3 = [i for i in stroka if i != '']
+print('Список без использованием модуля re: \n',line_str_3)
+
 # Задание-3:
 # Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
 # произвольными целыми цифрами, в результате в файле должно быть
 # 2500-значное произвольное число.
 # Найдите и выведите самую длинную последовательность одинаковых цифр
 # в вышезаполненном файле.
+
+# импорт библиотеки для составления списка
+import random
+import re
+
+# генерация числе из 2500 цифр
+number_list = []
+while len(number_list)<2500:
+    number_list.append(random.randint(1,9))
+    number_2500 = str(''.join(map(str, number_list)))
+# запись числа в файл
+file = open('number_2500.txt', 'w')
+file.write(number_2500)
+file.close()
+
+# библиотека для группировки цифр
+from itertools import groupby
+# открытие файла
+number = str(open('number_2500.txt', 'r').readline())
+# определение максимального списка одинаковых цифр в числе из 2500 цифр
+max((list(g) for k, g in groupby(number)), key=len)
