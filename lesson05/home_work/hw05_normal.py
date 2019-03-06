@@ -14,16 +14,17 @@
 # оформленные в виде соответствующих функций,
 # и импортированные в данный файл из easy.py
 import os, re, sys, shutil
-from hw05_easy import make_dir, dir_del, show_dirs, copy_file
 
 # from Easy import make_dir, remove_dir, files_in_dir, copy_file
 
+from hw05_easy import make_dir, dir_del, show_dirs, copy_file
 
 def main():
     while True:
         print('''1 Для создания дирректорий
 2 Список папок текущей дирректории 
 3 Удаление созданных папок в текущей дирректории формата dir_1
+4 Скопировать текущий файл
 q для выхода''')
         task = input()
 
@@ -37,9 +38,9 @@ q для выхода''')
             try:
                 dir_start = make_dir(int(dir_num))
             except FileExistsError:
-                print('К сожалению папки с таким порядковым номером уже существуют, введите другой номер')
+                print('К сожалению папки с таким порядковым номером уже существуют, введите другой номер или удалите папки нажав цифру 3')
             else:
-                1print(dir_start)
+                print(dir_start)
 
         elif task == '2':
             dir_string = os.listdir()
@@ -47,13 +48,11 @@ q для выхода''')
             print(dirs)
 
         elif task == '3':
-            data_and = os.listdir(path=".")
-            dir_end = dir_del(data_and)
-            if dir_end == []:
-                print('В текущей дирректории нет папок формата dir_1')
-            else:
-                print(f'Папки успешно удалены: {dir_end}')
+            dirs = os.listdir()
+            dir_del(dirs)
 
-
+        elif task == '4':
+            file_way = sys.argv[0]
+            copy_file(file_way)
 
 main()
