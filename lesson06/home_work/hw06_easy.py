@@ -78,7 +78,7 @@ class Trapeze:
         return self.ab + self.bc + self.cd +self.da
 
 
-trap = Trapeze((25, 15), (18, 22), (32, 22), (45, 15))
+trap = Trapeze((10, 20), (20, 40), (30, 40), (40, 20))
 if trap.check() == True:
     print(trap.face())
     print(f'Периметр трапеции равен: {(round(trap.p()))}')
